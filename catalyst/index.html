@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aaron Gogna — Strategy Director, Catalyst Team | Equinix</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0b;
+  --bg-elevated: #111113;
+  --bg-card: #161618;
+  --bg-card-hover: #1c1c1f;
+  --text: #e8e6e3;
+  --text-muted: #8a8886;
+  --text-dim: #5a5856;
+  --accent: #ED1C24;
+  --accent-glow: rgba(237, 28, 36, 0.15);
+  --accent-soft: #ff3d44;
+  --border: rgba(255,255,255,0.06);
+  --border-accent: rgba(237, 28, 36, 0.3);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background: var(--bg);
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+/* ── NAVIGATION ── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1.25rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10,10,11,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.4s ease;
+}
+
+nav.scrolled {
+  padding: 0.75rem 3rem;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.nav-logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 3rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  animation: pulse-glow 6s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fade-up 0.8s ease 0.2s forwards;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fade-up 0.8s ease 0.4s forwards;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-sub {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 680px;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fade-up 0.8s ease 0.6s forwards;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fade-up 0.8s ease 0.8s forwards;
+}
+
+.hero-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.hero-meta-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.hero-meta-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── SECTION COMMONS ── */
+section {
+  padding: 6rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.section-desc {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  max-width: 640px;
+}
+
+/* ── WHY CATALYST ── */
+.why-catalyst {
+  background: var(--bg-elevated);
+  max-width: 100%;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.why-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.why-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.why-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.why-card:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-card-hover);
+  transform: translateY(-4px);
+}
+
+.why-card:hover::before { opacity: 1; }
+
+.why-card-num {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.why-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.why-card p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+/* ── STATS RIBBON ── */
+.stats-ribbon {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.stats-ribbon section { padding: 0; }
+
+.stat-item {
+  text-align: center;
+  padding: 3.5rem 2rem;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+
+.stat-item:last-child { border-right: none; }
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-number span { color: var(--accent); }
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ── CASE STUDIES ── */
+.case-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.case-card {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  cursor: default;
+}
+
+.case-card:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.case-sidebar {
+  background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg) 100%);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid var(--border);
+}
+
+.case-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--border-accent);
+  border-radius: 100px;
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 1rem;
+}
+
+.case-client {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.case-industry {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-bottom: 1.5rem;
+}
+
+.case-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.case-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.case-metric-value {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--accent-soft);
+}
+
+.case-metric-label {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.case-content {
+  padding: 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.case-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.case-desc {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+}
+
+.case-capabilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.case-cap {
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.3rem 0.8rem;
+  background: rgba(237, 28, 36, 0.08);
+  border: 1px solid rgba(237, 28, 36, 0.15);
+  color: var(--accent-soft);
+  border-radius: 100px;
+  letter-spacing: 0.02em;
+}
+
+/* ── CAPABILITIES ── */
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.cap-item {
+  padding: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-card);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.cap-item:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-card-hover);
+}
+
+.cap-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.cap-item h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.cap-item p {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.cap-match {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--accent);
+  margin-top: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── CLIENTS ── */
+.clients-section {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elevated);
+  max-width: 100%;
+}
+
+.clients-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.clients-categories {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.client-category h4 {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.client-category ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.client-category li {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: color 0.3s;
+}
+
+.client-category li:hover {
+  color: var(--text);
+}
+
+/* ── TIMELINE ── */
+.timeline {
+  margin-top: 3rem;
+  position: relative;
+  padding-left: 3rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, var(--accent), var(--border));
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-left: 1rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.85rem;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.timeline-date {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-role {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.timeline-company {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.timeline-desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 600px;
+}
+
+/* ── CTA ── */
+.cta-section {
+  text-align: center;
+  padding: 8rem 3rem;
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  opacity: 0.5;
+}
+
+.cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.cta-desc {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+  position: relative;
+}
+
+.cta-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.02em;
+}
+
+.cta-btn-primary {
+  background: var(--accent);
+  color: white;
+  border: 1px solid var(--accent);
+}
+
+.cta-btn-primary:hover {
+  background: var(--accent-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(237, 28, 36, 0.3);
+}
+
+.cta-btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.cta-btn-secondary:hover {
+  border-color: var(--text-muted);
+  transform: translateY(-2px);
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 2rem 3rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  max-width: 100%;
+}
+
+footer a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+footer a:hover { color: var(--accent); }
+
+/* ── DIVIDER ── */
+.divider {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.divider-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero { padding: 7rem 1.5rem 3rem; }
+  section { padding: 4rem 1.5rem; }
+  .why-grid { grid-template-columns: 1fr; }
+  .stats-ribbon { grid-template-columns: repeat(2, 1fr); }
+  .stat-item:nth-child(2) { border-right: none; }
+  .case-card { grid-template-columns: 1fr; }
+  .case-sidebar { border-right: none; border-bottom: 1px solid var(--border); }
+  .cap-grid { grid-template-columns: 1fr; }
+  .clients-categories { grid-template-columns: repeat(2, 1fr); }
+  .hero-meta { gap: 1.5rem; }
+  .cta-links { flex-direction: column; align-items: center; }
+}
+
+@media (max-width: 600px) {
+  .stats-ribbon { grid-template-columns: 1fr; }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .stat-item:last-child { border-bottom: none; }
+  .clients-categories { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">Aaron Gogna<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#why">Why Catalyst</a></li>
+    <li><a href="#work">Case Studies</a></li>
+    <li><a href="#capabilities">Capabilities</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Application — Strategy Director, Catalyst Team</div>
+  <h1>I build clarity from<br>complexity — and turn<br>it into <em>outcomes.</em></h1>
+  <p class="hero-sub">14 years solving enterprise-grade problems at the intersection of strategy, execution, and commercial impact. This is my case for joining the Catalyst team at Equinix.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Experience</span>
+      <span class="hero-meta-value">14 Years</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Engagements</span>
+      <span class="hero-meta-value">100+ Led</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Scope</span>
+      <span class="hero-meta-value">Fortune 500 → Disruptors</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Base</span>
+      <span class="hero-meta-value">Toronto, Canada</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-ribbon">
+  <div class="stat-item reveal">
+    <div class="stat-number">100<span>+</span></div>
+    <div class="stat-label">Consulting Engagements Led</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-number">14</div>
+    <div class="stat-label">Years of Strategic Consulting</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-number">9</div>
+    <div class="stat-label">Years at Simon-Kucher</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-number">50<span>+</span></div>
+    <div class="stat-label">Executive-Level Client Relationships</div>
+  </div>
+</div>
+
+<!-- WHY CATALYST -->
+<section class="why-catalyst" id="why">
+  <div class="why-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Strategic Fit</div>
+      <h2 class="section-title">Why I Belong on the Catalyst Team</h2>
+      <p class="section-desc">Catalyst doesn't operate like a typical internal team. It operates like a top-tier consulting firm embedded inside the enterprise. That's exactly the operating model I've spent 14 years mastering.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-card-num">01</div>
+        <h3>I've Run This Playbook 100+ Times</h3>
+        <p>3–6 month sprint engagements, cross-functional mobilization, executive alignment, structured problem-solving, and transition to long-term owners. This isn't new to me — it's the operating rhythm I was trained in and have led across industries.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-card-num">02</div>
+        <h3>I Synthesize, Don't Summarize</h3>
+        <p>The hardest part of enterprise strategy isn't collecting inputs — it's converting competing priorities, incomplete data, and organizational friction into a clear decision framework. That's my core muscle.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-card-num">03</div>
+        <h3>I Drive Things to Land</h3>
+        <p>Strategy without execution discipline is a slide deck. I own the full arc — from problem framing and analytical rigor through governance design, change embedding, and measurable business outcomes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="work">
+  <div class="reveal">
+    <div class="section-eyebrow">Selected Engagements</div>
+    <h2 class="section-title">Work That Maps to Catalyst</h2>
+    <p class="section-desc">A curated portfolio of engagements selected for relevance to the Catalyst Strategy Director mandate. Each maps directly to the role's core competencies.</p>
+  </div>
+
+  <div class="case-grid">
+
+    <!-- Case 1 -->
+    <div class="case-card reveal">
+      <div class="case-sidebar">
+        <div>
+          <div class="case-tag">Enterprise Transformation</div>
+          <div class="case-client">Canadian Tire</div>
+          <div class="case-industry">Retail • Digital & AI Strategy</div>
+        </div>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <span class="case-metric-value">11 Weeks</span>
+            <span class="case-metric-label">Sprint Duration</span>
+          </div>
+          <div class="case-metric">
+            <span class="case-metric-value">5 Bold Bets</span>
+            <span class="case-metric-label">AI Use Cases Defined</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-content">
+        <h3 class="case-title">AI-Powered Shopping Transformation — Discovery to Roadmap</h3>
+        <p class="case-desc">Led an 11-week discovery and strategic roadmapping engagement for Canadian Tire's digital team, framing a multi-year AI transformation around mission-based shopping. Structured ambiguous executive aspirations into a clear set of prioritized "Bold Bets," built the analytical business cases to back each one, and designed the operating cadence to mobilize cross-functional teams against a sequenced execution plan. Presented to the C-suite with a narrative-arc deck designed to build conviction, not just inform.</p>
+        <div class="case-capabilities">
+          <span class="case-cap">Problem Framing</span>
+          <span class="case-cap">Executive Facilitation</span>
+          <span class="case-cap">Strategic Communication</span>
+          <span class="case-cap">Program Design</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 2 -->
+    <div class="case-card reveal">
+      <div class="case-sidebar">
+        <div>
+          <div class="case-tag">Multi-Workstream Program</div>
+          <div class="case-client">PE-Backed Home Services Portfolio</div>
+          <div class="case-industry">Private Equity • Platform Build</div>
+        </div>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <span class="case-metric-value">150+</span>
+            <span class="case-metric-label">Brands in Portfolio</span>
+          </div>
+          <div class="case-metric">
+            <span class="case-metric-value">$2.4M</span>
+            <span class="case-metric-label">Modeled Revenue Impact</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-content">
+        <h3 class="case-title">Customer-Facing Mobile App — Business Case & Execution Roadmap</h3>
+        <p class="case-desc">Directed strategy and business case development for a PE-backed portfolio company launching a unified customer app across 150+ brands. Built a rigorous financial model grounding investment decisions in cohort economics, customer lifetime value, and cost-to-serve dynamics. Defined scope, sequencing against engineering capacity, and the governance structure to manage cross-brand dependencies — converting board-level ambiguity into a phased execution plan with clear decision gates.</p>
+        <div class="case-capabilities">
+          <span class="case-cap">Financial Modeling</span>
+          <span class="case-cap">Program Ownership</span>
+          <span class="case-cap">Decision Framing</span>
+          <span class="case-cap">Stakeholder Alignment</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 3 -->
+    <div class="case-card reveal">
+      <div class="case-sidebar">
+        <div>
+          <div class="case-tag">Revenue Transformation</div>
+          <div class="case-client">Cloudflare</div>
+          <div class="case-industry">B2B SaaS • Infrastructure</div>
+        </div>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <span class="case-metric-value">3x</span>
+            <span class="case-metric-label">ARPU Uplift in Target Segment</span>
+          </div>
+          <div class="case-metric">
+            <span class="case-metric-value">$50M+</span>
+            <span class="case-metric-label">Incremental Revenue Modeled</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-content">
+        <h3 class="case-title">Commercial Model Redesign — Packaging, Pricing & GTM Restructure</h3>
+        <p class="case-desc">Led the end-to-end redesign of Cloudflare's mid-market commercial model — restructuring packaging tiers, pricing metrics, and GTM incentive alignment to unlock ARPU expansion without churn acceleration. Ran willingness-to-pay research across segments, built multi-scenario financial models incorporating elasticity and cohort dynamics, and facilitated executive alignment across Product, Sales, and Finance on a phased rollout plan. Directly relevant to Equinix's complex, multi-product commercial environment.</p>
+        <div class="case-capabilities">
+          <span class="case-cap">Analytical Rigor</span>
+          <span class="case-cap">Cross-Functional Alignment</span>
+          <span class="case-cap">Executive Advisory</span>
+          <span class="case-cap">Monetization Strategy</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 4 -->
+    <div class="case-card reveal">
+      <div class="case-sidebar">
+        <div>
+          <div class="case-tag">E-Team Decision Forum</div>
+          <div class="case-client">Mastercard</div>
+          <div class="case-industry">Financial Services • Global Strategy</div>
+        </div>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <span class="case-metric-value">6 Markets</span>
+            <span class="case-metric-label">Multi-Region Scope</span>
+          </div>
+          <div class="case-metric">
+            <span class="case-metric-value">SVP+</span>
+            <span class="case-metric-label">Decision Forum Audience</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-content">
+        <h3 class="case-title">Global Product Strategy & Executive Decision Facilitation</h3>
+        <p class="case-desc">Partnered with Mastercard's senior leadership to structure a multi-market product strategy decision across six regions. Synthesized competing market intelligence, regulatory constraints, customer segmentation data, and internal capability assessments into a clear set of decision options with quantified trade-offs. Facilitated the executive decision forum, managing competing priorities and politically sensitive dynamics while driving the group to an aligned, actionable path forward.</p>
+        <div class="case-capabilities">
+          <span class="case-cap">Executive Facilitation</span>
+          <span class="case-cap">Synthesis Under Ambiguity</span>
+          <span class="case-cap">Multi-Region Complexity</span>
+          <span class="case-cap">Strategic Advisory</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 5 -->
+    <div class="case-card reveal">
+      <div class="case-sidebar">
+        <div>
+          <div class="case-tag">Digital Ecosystem Redesign</div>
+          <div class="case-client">CIBC</div>
+          <div class="case-industry">Financial Services • Digital CX</div>
+        </div>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <span class="case-metric-value">140%</span>
+            <span class="case-metric-label">Digital Conversion Lift</span>
+          </div>
+          <div class="case-metric">
+            <span class="case-metric-value">8 Workstreams</span>
+            <span class="case-metric-label">Concurrent Sprint Tracks</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-content">
+        <h3 class="case-title">End-to-End Digital Customer Ecosystem Transformation</h3>
+        <p class="case-desc">Led the redesign of CIBC's digital customer journey across acquisition, onboarding, cross-sell, and retention — managing 8 concurrent workstreams with interdependent deliverables. Applied behavioral economics expertise to architect decision environments that shifted customer behavior, producing triple-digit conversion improvements. Established the governance model, RAID tracking, and operating cadence to maintain quality, pace, and stakeholder alignment across a complex, multi-team engagement.</p>
+        <div class="case-capabilities">
+          <span class="case-cap">Program Management</span>
+          <span class="case-cap">Behavioral Design</span>
+          <span class="case-cap">Governance Design</span>
+          <span class="case-cap">Change Management</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 6 -->
+    <div class="case-card reveal">
+      <div class="case-sidebar">
+        <div>
+          <div class="case-tag">Ambiguity → Execution</div>
+          <div class="case-client">HubSpot</div>
+          <div class="case-industry">B2B SaaS • Growth Strategy</div>
+        </div>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <span class="case-metric-value">4 Months</span>
+            <span class="case-metric-label">Engagement Duration</span>
+          </div>
+          <div class="case-metric">
+            <span class="case-metric-value">22%</span>
+            <span class="case-metric-label">Multi-Product Attach Improvement</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-content">
+        <h3 class="case-title">Multi-Product Commercial Architecture & GTM Alignment</h3>
+        <p class="case-desc">Engaged during a period of rapid product expansion to redesign HubSpot's multi-product packaging architecture and commercial incentive structure. Framed the problem from ambiguous executive inputs, structured the analytical workstreams (segmentation, WTP, competitive benchmarking, cohort modeling), and facilitated a series of cross-functional alignment sessions to land on a unified go-to-market approach. Transitioned execution ownership to the long-term product and revenue teams — exactly the Catalyst operating model.</p>
+        <div class="case-capabilities">
+          <span class="case-cap">Problem Structuring</span>
+          <span class="case-cap">Cross-Functional Leadership</span>
+          <span class="case-cap">Transition to Owners</span>
+          <span class="case-cap">Commercial Strategy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section id="capabilities">
+  <div class="reveal">
+    <div class="section-eyebrow">Competency Mapping</div>
+    <h2 class="section-title">Capabilities × Catalyst Requirements</h2>
+    <p class="section-desc">A direct mapping of my core capabilities to the five pillars of the Catalyst Strategy Director mandate.</p>
+  </div>
+
+  <div class="cap-grid">
+    <div class="cap-item reveal">
+      <div class="cap-icon">◆</div>
+      <h3>Impact-Oriented Problem Solving</h3>
+      <p>Trained in structured problem decomposition across 100+ engagements. I frame ambiguity, identify critical issues fast, build rigorous analytical work (financial models, scenario analyses, root cause diagnostics), and convert data into clear decision options — not just insights.</p>
+      <div class="cap-match">↳ Catalyst JD: Problem Solving & Decision Making</div>
+    </div>
+    <div class="cap-item reveal">
+      <div class="cap-icon">◇</div>
+      <h3>Executive Facilitation & Presence</h3>
+      <p>Seasoned in running high-stakes decision forums with C-suite and SVP+ audiences. I set the frame, manage competing egos and priorities, hold the room through emotionally charged moments, and drive groups to decisive, enterprise-aligned outcomes.</p>
+      <div class="cap-match">↳ Catalyst JD: Adaptable Leadership & Facilitation</div>
+    </div>
+    <div class="cap-item reveal">
+      <div class="cap-icon">▲</div>
+      <h3>Synthesis & Strategic Narrative</h3>
+      <p>My signature capability. I connect disparate inputs — market data, stakeholder perspectives, financial constraints, technical realities — and synthesize them into clear, compelling narratives that align organizations around action. Not decks that inform. Decks that move.</p>
+      <div class="cap-match">↳ Catalyst JD: Synthesis & Strategic Communication</div>
+    </div>
+    <div class="cap-item reveal">
+      <div class="cap-icon">■</div>
+      <h3>Program Ownership & Governance</h3>
+      <p>Experienced leading multi-workstream programs concurrently — establishing charters, RAID logs, governance cadences, escalation paths, and decision forums. I build the operating system that converts strategy into sequenced, prioritized execution and then run it.</p>
+      <div class="cap-match">↳ Catalyst JD: Program Ownership & Execution</div>
+    </div>
+    <div class="cap-item reveal">
+      <div class="cap-icon">●</div>
+      <h3>Trusted Executive Advisory</h3>
+      <p>I've served as a trusted advisor to executives at Mastercard, CIBC, Scotiabank, Cloudflare, Kraft Heinz, and dozens more — building rapid command of new businesses, earning trust through judgment and discretion, and influencing decisions that shape enterprise direction.</p>
+      <div class="cap-match">↳ Catalyst JD: Trusted Partnership</div>
+    </div>
+    <div class="cap-item reveal">
+      <div class="cap-icon">◈</div>
+      <h3>Digital & Technology Fluency</h3>
+      <p>Unlike most strategy consultants, I've led hands-on digital product builds — mobile apps, AI enablement, full-stack platform launches. I speak the language of engineering, product, and data teams, which accelerates the strategy-to-execution translation that Catalyst demands.</p>
+      <div class="cap-match">↳ Bonus: Equinix's Digital Infrastructure Context</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients-section">
+  <div class="clients-inner reveal">
+    <div class="section-eyebrow">Portfolio Breadth</div>
+    <h2 class="section-title">Clients I've Served</h2>
+    <p class="section-desc">A versatile background spanning regulated industries, global consumer brands, and digital-first technology platforms.</p>
+
+    <div class="clients-categories">
+      <div class="client-category">
+        <h4>Finance</h4>
+        <ul>
+          <li>Mastercard</li>
+          <li>CIBC</li>
+          <li>Scotiabank</li>
+          <li>TD</li>
+          <li>RBC</li>
+          <li>Allstate</li>
+          <li>Finastra</li>
+        </ul>
+      </div>
+      <div class="client-category">
+        <h4>B2B / SaaS Tech</h4>
+        <ul>
+          <li>Cloudflare</li>
+          <li>HubSpot</li>
+          <li>ADP</li>
+          <li>Cadre</li>
+          <li>Prodigy</li>
+          <li>Chegg</li>
+        </ul>
+      </div>
+      <div class="client-category">
+        <h4>CPG & Retail</h4>
+        <ul>
+          <li>Canadian Tire</li>
+          <li>Kraft Heinz</li>
+          <li>Arc'teryx</li>
+          <li>Lululemon</li>
+          <li>Shutterfly</li>
+          <li>SC Johnson</li>
+          <li>John Deere</li>
+        </ul>
+      </div>
+      <div class="client-category">
+        <h4>Sports & Wellness</h4>
+        <ul>
+          <li>NBA</li>
+          <li>Moderna</li>
+          <li>Zumba</li>
+          <li>Hydrafacial</li>
+          <li>Curology</li>
+          <li>NASM</li>
+        </ul>
+      </div>
+      <div class="client-category">
+        <h4>Consumer Tech</h4>
+        <ul>
+          <li>Qapital</li>
+          <li>AAMC</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section id="journey">
+  <div class="reveal">
+    <div class="section-eyebrow">Career Arc</div>
+    <h2 class="section-title">The Journey Here</h2>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-date">2024 — Present</div>
+      <div class="timeline-role">Strategy Director</div>
+      <div class="timeline-company">Apply Digital — Toronto</div>
+      <div class="timeline-desc">Leading end-to-end digital transformations for enterprise clients. Owning the full strategy-to-execution arc: commercial direction, product decisions, operating models, launch execution, and post-launch growth optimization across web and mobile ecosystems.</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-date">2015 — 2024</div>
+      <div class="timeline-role">Director & Head of CX, North America</div>
+      <div class="timeline-company">Simon-Kucher — New York</div>
+      <div class="timeline-desc">Nine years at the global leader in pricing, monetization, and commercial growth. Led 80+ engagements across financial services, technology, retail, and healthcare. Built and owned complex financial models, directed large-scale research programs, and guided executive-level commercial transformations.</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-date">2012 — 2015</div>
+      <div class="timeline-role">Research Lead — Consumer Psychology & Decision Science</div>
+      <div class="timeline-company">University of Toronto</div>
+      <div class="timeline-desc">Designed and conducted behavioral research testing how incentives, risk, and context influence decision-making. Built quantitative models of choice behavior — the scientific foundation for the behavioral economics expertise I apply across digital and commercial design.</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-date">2012</div>
+      <div class="timeline-role">B.Com</div>
+      <div class="timeline-company">University of Toronto</div>
+      <div class="timeline-desc">Bachelor of Commerce. Rotman School of Management.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <h2 class="cta-title reveal">Let's Build What's Next<br>at Equinix<span style="color:var(--accent)">.</span></h2>
+  <p class="cta-desc reveal">I'm ready to bring 14 years of strategic consulting intensity to the Catalyst team. Let's talk about what that looks like.</p>
+  <div class="cta-links reveal">
+    <a href="mailto:aaron.gogna@gmail.com" class="cta-btn cta-btn-primary">
+      ✉ aaron.gogna@gmail.com
+    </a>
+    <a href="https://linkedin.com/in/aaron-gogna" class="cta-btn cta-btn-secondary" target="_blank">
+      LinkedIn Profile →
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Aaron Gogna. Built for Equinix Talent.</span>
+  <span>+1 (647) 888-5598</span>
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+reveals.forEach(el => observer.observe(el));
+
+// Nav shrink on scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
+});
+
+// Smooth scroll for nav links
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Animate stat numbers on scroll
+const statNumbers = document.querySelectorAll('.stat-number');
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const text = el.textContent;
+      const num = parseInt(text);
+      if (isNaN(num)) return;
+      const suffix = text.replace(num.toString(), '');
+      let current = 0;
+      const increment = Math.ceil(num / 40);
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= num) {
+          current = num;
+          clearInterval(timer);
+        }
+        el.innerHTML = current + (suffix ? `<span>${suffix}</span>` : '');
+      }, 30);
+      statObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+statNumbers.forEach(el => statObserver.observe(el));
+</script>
+
+</body>
+</html>
