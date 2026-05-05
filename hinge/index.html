@@ -354,43 +354,51 @@ footer a:hover { color: #ffffff; }
 <!-- VISITOR TRACKING -->
 <script>
 (function() {
-  try {
-    var topic = 'meetaaron-999f7ff5edfaf3d0';
-    var ref = document.referrer || 'Direct visit (no referrer)';
-    var ua = navigator.userAgent;
-    var page = location.pathname;
-    var lang = navigator.language || 'unknown';
-    var screen = window.screen.width + 'x' + window.screen.height;
-    var time = new Date().toLocaleString('en-US', { timeZone: 'America/Toronto', dateStyle: 'medium', timeStyle: 'short' });
+  var topic = 'meetaaron-999f7ff5edfaf3d0';
+  var ref = document.referrer || 'Direct visit (no referrer)';
+  var ua = navigator.userAgent || '';
+  var page = location.pathname;
+  var lang = navigator.language || 'unknown';
+  var sz = window.screen ? (window.screen.width + 'x' + window.screen.height) : 'unknown';
+  var now = new Date();
+  var time = now.toLocaleString('en-US', { timeZone: 'America/Toronto' });
 
-    // Parse browser/device from user agent
-    var browser = 'Unknown';
-    if (ua.indexOf('Chrome') > -1 && ua.indexOf('Edg') === -1) browser = 'Chrome';
-    else if (ua.indexOf('Safari') > -1 && ua.indexOf('Chrome') === -1) browser = 'Safari';
-    else if (ua.indexOf('Firefox') > -1) browser = 'Firefox';
-    else if (ua.indexOf('Edg') > -1) browser = 'Edge';
+  var browser = 'Unknown';
+  if (ua.indexOf('Edg') > -1) browser = 'Edge';
+  else if (ua.indexOf('Chrome') > -1) browser = 'Chrome';
+  else if (ua.indexOf('Safari') > -1) browser = 'Safari';
+  else if (ua.indexOf('Firefox') > -1) browser = 'Firefox';
 
-    var device = 'Desktop';
-    if (/iPhone|iPad|iPod/.test(ua)) device = 'iOS';
-    else if (/Android/.test(ua)) device = 'Android';
-    else if (/Mobile/.test(ua)) device = 'Mobile';
+  var device = 'Desktop';
+  if (/iPhone|iPad|iPod/.test(ua)) device = 'iOS';
+  else if (/Android/.test(ua)) device = 'Android';
+  else if (/Mobile/.test(ua)) device = 'Mobile';
 
-    var body = 'Page: ' + page
-      + '\nTime: ' + time + ' (ET)'
-      + '\nReferrer: ' + ref
-      + '\nDevice: ' + device + ' / ' + browser
-      + '\nScreen: ' + screen
-      + '\nLanguage: ' + lang;
+  var msg = 'Page: ' + page
+    + '\nTime: ' + time + ' (ET)'
+    + '\nReferrer: ' + ref
+    + '\nDevice: ' + device + ' / ' + browser
+    + '\nScreen: ' + sz
+    + '\nLanguage: ' + lang;
 
-    fetch('https://ntfy.sh/' + topic, {
+  var url = 'https://ntfy.sh/' + topic;
+  var sent = false;
+
+  // Method 1: fetch
+  if (window.fetch) {
+    fetch(url, {
       method: 'POST',
-      headers: {
-        'Title': 'New visitor — meetaaron.ca' + page,
-        'Tags': 'eyes'
-      },
-      body: body
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: msg
     }).catch(function() {});
-  } catch(e) {}
+    sent = true;
+  }
+
+  // Method 2: sendBeacon fallback
+  if (!sent && navigator.sendBeacon) {
+    navigator.sendBeacon(url, msg);
+  }
 })();
 </script>
 
