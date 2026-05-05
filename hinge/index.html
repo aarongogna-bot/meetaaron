@@ -7,17 +7,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0a0a0b;
-  --bg-elevated: #111113;
-  --bg-card: #161618;
-  --text: #e8e6e3;
-  --text-muted: #8a8886;
-  --text-dim: #5a5856;
-  --accent: #ED1C24;
-  --accent-glow: rgba(237, 28, 36, 0.15);
-  --accent-soft: #ff3d44;
-  --border: rgba(255,255,255,0.06);
-  --border-accent: rgba(237, 28, 36, 0.3);
+  --bg: #000000;
+  --bg-card: #111111;
+  --text: #ffffff;
+  --text-muted: #999999;
+  --text-dim: #666666;
+  --border: rgba(255,255,255,0.1);
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'DM Sans', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -43,24 +38,14 @@ body {
 }
 
 ::selection {
-  background: var(--accent);
-  color: white;
-}
-
-/* ── GRAIN OVERLAY ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9999;
+  background: #ffffff;
+  color: #000000;
 }
 
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
 
 /* ── NAVIGATION ── */
 nav {
@@ -73,7 +58,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(10,10,11,0.85);
+  background: rgba(0,0,0,0.85);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
 }
@@ -87,7 +72,7 @@ nav {
   text-decoration: none;
 }
 
-.nav-logo span { color: var(--accent); }
+.nav-logo span { color: var(--text-muted); }
 
 .nav-links {
   display: flex;
@@ -121,7 +106,7 @@ nav {
 .page-eyebrow {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--accent);
+  color: var(--text-muted);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin-bottom: 1rem;
@@ -134,11 +119,12 @@ nav {
   line-height: 1.1;
   letter-spacing: -0.03em;
   margin-bottom: 1rem;
+  color: #ffffff;
 }
 
 .page-title em {
   font-style: italic;
-  color: var(--accent);
+  color: #ffffff;
 }
 
 .page-sub {
@@ -162,15 +148,16 @@ nav {
   border-radius: 8px;
   transition: all 0.3s ease;
   letter-spacing: 0.02em;
-  background: var(--accent);
-  color: white;
-  border: 1px solid var(--accent);
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
 }
 
 .download-btn:hover {
-  background: var(--accent-soft);
+  background: transparent;
+  color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(237, 28, 36, 0.3);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.1);
 }
 
 .download-icon {
@@ -238,7 +225,7 @@ footer a {
   transition: color 0.3s;
 }
 
-footer a:hover { color: var(--accent); }
+footer a:hover { color: #ffffff; }
 
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(30px); }
@@ -296,7 +283,7 @@ footer a:hover { color: var(--accent); }
 
 <!-- FOOTER -->
 <footer>
-  <span>© 2026 Aaron Gogna</span>
+  <span>&copy; 2026 Aaron Gogna</span>
   <a href="mailto:aaron.gogna@gmail.com">aaron.gogna@gmail.com</a>
 </footer>
 
