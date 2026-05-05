@@ -351,5 +351,48 @@ footer a:hover { color: #ffffff; }
   <span>&copy; 2026 Aaron Gogna</span>
 </footer>
 
+<!-- VISITOR TRACKING -->
+<script>
+(function() {
+  try {
+    var topic = 'meetaaron-999f7ff5edfaf3d0';
+    var ref = document.referrer || 'Direct visit (no referrer)';
+    var ua = navigator.userAgent;
+    var page = location.pathname;
+    var lang = navigator.language || 'unknown';
+    var screen = window.screen.width + 'x' + window.screen.height;
+    var time = new Date().toLocaleString('en-US', { timeZone: 'America/Toronto', dateStyle: 'medium', timeStyle: 'short' });
+
+    // Parse browser/device from user agent
+    var browser = 'Unknown';
+    if (ua.indexOf('Chrome') > -1 && ua.indexOf('Edg') === -1) browser = 'Chrome';
+    else if (ua.indexOf('Safari') > -1 && ua.indexOf('Chrome') === -1) browser = 'Safari';
+    else if (ua.indexOf('Firefox') > -1) browser = 'Firefox';
+    else if (ua.indexOf('Edg') > -1) browser = 'Edge';
+
+    var device = 'Desktop';
+    if (/iPhone|iPad|iPod/.test(ua)) device = 'iOS';
+    else if (/Android/.test(ua)) device = 'Android';
+    else if (/Mobile/.test(ua)) device = 'Mobile';
+
+    var body = 'Page: ' + page
+      + '\nTime: ' + time + ' (ET)'
+      + '\nReferrer: ' + ref
+      + '\nDevice: ' + device + ' / ' + browser
+      + '\nScreen: ' + screen
+      + '\nLanguage: ' + lang;
+
+    fetch('https://ntfy.sh/' + topic, {
+      method: 'POST',
+      headers: {
+        'Title': 'New visitor — meetaaron.ca' + page,
+        'Tags': 'eyes'
+      },
+      body: body
+    }).catch(function() {});
+  } catch(e) {}
+})();
+</script>
+
 </body>
 </html>
