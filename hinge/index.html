@@ -175,36 +175,25 @@ nav {
   animation: fade-up 0.8s ease 0.4s forwards;
 }
 
-.pdf-wrapper {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  position: relative;
+#pdf-viewer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
 }
 
-.pdf-wrapper iframe {
+#pdf-viewer canvas {
   width: 100%;
-  height: 80vh;
-  border: none;
-  display: block;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
 }
 
-/* Mobile fallback */
-.pdf-fallback {
-  display: none;
-  padding: 4rem 2rem;
+.pdf-loading {
   text-align: center;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-}
-
-.pdf-fallback p {
+  padding: 4rem 2rem;
   color: var(--text-muted);
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-  line-height: 1.7;
+  font-size: 0.95rem;
 }
 
 /* ── FOOTER ── */
@@ -289,8 +278,7 @@ footer a:hover { color: #ffffff; }
 }
 
 @media (max-width: 600px) {
-  .pdf-wrapper { display: none; }
-  .pdf-fallback { display: block; }
+  .pdf-container { padding: 0 1rem 2rem; }
 }
 </style>
 </head>
@@ -316,16 +304,40 @@ footer a:hover { color: #ffffff; }
 
 <!-- PDF VIEWER -->
 <div class="pdf-container">
-  <div class="pdf-wrapper">
-    <iframe src="Aaron-Gogna-for-Hinge-May-2026.pdf" title="Aaron Gogna — Application for Hinge, May 2026"></iframe>
-  </div>
-  <div class="pdf-fallback">
-    <p>PDF preview is not available on this device. Tap the button below to download and view the document.</p>
-    <a href="Aaron-Gogna-for-Hinge-May-2026.pdf" download class="download-btn">
-      <span class="download-icon">↓</span> Download PDF
-    </a>
+  <div id="pdf-viewer">
+    <div class="pdf-loading">Loading PDF…</div>
   </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+(function() {
+  var url = 'Aaron-Gogna-for-Hinge-May-2026.pdf';
+  var container = document.getElementById('pdf-viewer');
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  pdfjsLib.getDocument(url).promise.then(function(pdf) {
+    container.innerHTML = '';
+    var totalPages = pdf.numPages;
+    var renderPage = function(num) {
+      pdf.getPage(num).then(function(page) {
+        var scale = 2;
+        var viewport = page.getViewport({ scale: scale });
+        var canvas = document.createElement('canvas');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        container.appendChild(canvas);
+        page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport }).promise.then(function() {
+          if (num < totalPages) renderPage(num + 1);
+        });
+      });
+    };
+    renderPage(1);
+  }).catch(function() {
+    container.innerHTML = '<p class="pdf-loading">Could not load PDF. <a href="' + url + '" download style="color:#fff;text-decoration:underline;">Download it here</a>.</p>';
+  });
+})();
+</script>
 
 <!-- CONTACT -->
 <section id="contact" class="contact-section">
