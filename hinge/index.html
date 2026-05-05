@@ -182,11 +182,13 @@ nav {
   gap: 1.5rem;
 }
 
-#pdf-viewer canvas {
+#pdf-viewer canvas,
+.pdf-page-placeholder {
   width: 100%;
   height: auto;
   border-radius: 8px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  overflow: hidden;
 }
 
 .pdf-loading {
@@ -316,23 +318,77 @@ footer a:hover { color: #ffffff; }
   var container = document.getElementById('pdf-viewer');
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
+  // Lower scale on mobile to save memory
+  var isMobile = window.innerWidth < 768;
+  var scale = isMobile ? 1.5 : 2;
+
   pdfjsLib.getDocument(url).promise.then(function(pdf) {
     container.innerHTML = '';
     var totalPages = pdf.numPages;
-    var renderPage = function(num) {
+    var rendered = {};
+
+    // Create placeholder divs for each page
+    for (var i = 1; i <= totalPages; i++) {
+      var wrapper = document.createElement('div');
+      wrapper.className = 'pdf-page-placeholder';
+      wrapper.setAttribute('data-page', i);
+      container.appendChild(wrapper);
+    }
+
+    // Set placeholder heights using first page dimensions
+    pdf.getPage(1).then(function(firstPage) {
+      var vp = firstPage.getViewport({ scale: scale });
+      var aspectRatio = vp.height / vp.width;
+      var placeholders = container.querySelectorAll('.pdf-page-placeholder');
+      for (var j = 0; j < placeholders.length; j++) {
+        placeholders[j].style.width = '100%';
+        placeholders[j].style.paddingBottom = (aspectRatio * 100) + '%';
+        placeholders[j].style.position = 'relative';
+      }
+
+      // Render first 3 pages immediately
+      for (var k = 1; k <= Math.min(3, totalPages); k++) {
+        renderPage(k);
+      }
+
+      // Lazy-load remaining pages on scroll
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var pageNum = parseInt(entry.target.getAttribute('data-page'));
+            if (!rendered[pageNum]) {
+              renderPage(pageNum);
+            }
+          }
+        });
+      }, { rootMargin: '600px' });
+
+      placeholders.forEach(function(el) {
+        var pn = parseInt(el.getAttribute('data-page'));
+        if (pn > 3) observer.observe(el);
+      });
+    });
+
+    function renderPage(num) {
+      if (rendered[num]) return;
+      rendered[num] = true;
       pdf.getPage(num).then(function(page) {
-        var scale = 2;
         var viewport = page.getViewport({ scale: scale });
         var canvas = document.createElement('canvas');
         canvas.width = viewport.width;
         canvas.height = viewport.height;
-        container.appendChild(canvas);
-        page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport }).promise.then(function() {
-          if (num < totalPages) renderPage(num + 1);
-        });
+        canvas.style.position = 'absolute';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        var wrapper = container.querySelector('[data-page="' + num + '"]');
+        if (wrapper) {
+          wrapper.appendChild(canvas);
+          page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport });
+        }
       });
-    };
-    renderPage(1);
+    }
   }).catch(function() {
     container.innerHTML = '<p class="pdf-loading">Could not load PDF. <a href="' + url + '" download style="color:#fff;text-decoration:underline;">Download it here</a>.</p>';
   });
