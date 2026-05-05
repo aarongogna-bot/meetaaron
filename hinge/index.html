@@ -227,6 +227,53 @@ footer a {
 
 footer a:hover { color: #ffffff; }
 
+/* ── CONTACT SECTION ── */
+.contact-section {
+  padding: 4rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  border-top: 1px solid var(--border);
+}
+
+.contact-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #ffffff;
+}
+
+.contact-links {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.contact-item {
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.contact-item:hover { opacity: 0.7; }
+
+.contact-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.contact-value {
+  display: block;
+  font-size: 0.95rem;
+  color: #ffffff;
+  font-weight: 500;
+}
+
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
@@ -253,8 +300,7 @@ footer a:hover { color: #ffffff; }
 <nav>
   <a href="/" class="nav-logo">Aaron Gogna<span>.</span></a>
   <ul class="nav-links">
-    <li><a href="/catalyst">Catalyst</a></li>
-    <li><a href="mailto:aaron.gogna@gmail.com">Contact</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
@@ -281,10 +327,28 @@ footer a:hover { color: #ffffff; }
   </div>
 </div>
 
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <h2 class="contact-title">Get in Touch</h2>
+  <div class="contact-links">
+    <a href="mailto:aaron.gogna@gmail.com" class="contact-item">
+      <span class="contact-label">Email</span>
+      <span class="contact-value">aaron.gogna@gmail.com</span>
+    </a>
+    <a href="tel:+16478885598" class="contact-item">
+      <span class="contact-label">Phone</span>
+      <span class="contact-value">+1 (647) 888-5598</span>
+    </a>
+    <a href="https://linkedin.com/in/aaron-gogna" target="_blank" rel="noopener" class="contact-item">
+      <span class="contact-label">LinkedIn</span>
+      <span class="contact-value">linkedin.com/in/aaron-gogna</span>
+    </a>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <span>&copy; 2026 Aaron Gogna</span>
-  <a href="mailto:aaron.gogna@gmail.com">aaron.gogna@gmail.com</a>
 </footer>
 
 </body>
