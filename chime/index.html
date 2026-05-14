@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aaron Gogna</title>
+<title>Aaron Gogna — Senior Director, Strategy and Growth Initiatives | Chime</title>
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -99,19 +99,28 @@ nav {
 
 .nav-links a:hover { color: var(--text); }
 
-/* ── HERO ── */
-.hero {
-  padding: 10rem 3rem 4rem;
-  max-width: 900px;
+/* ── HEADER ── */
+.page-header {
+  padding: 8rem 3rem 2rem;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
   opacity: 0;
   animation: fade-up 0.8s ease 0.2s forwards;
 }
 
-.hero-name {
+.page-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.page-title {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 900;
   line-height: 1.1;
   letter-spacing: -0.03em;
@@ -119,52 +128,21 @@ nav {
   color: #ffffff;
 }
 
-.hero-headline {
-  font-size: 1.15rem;
+.page-title em {
+  font-style: italic;
+  color: #ffffff;
+}
+
+.page-sub {
+  font-size: 1.05rem;
   line-height: 1.7;
   color: var(--text-muted);
   max-width: 640px;
-  margin-bottom: 2.5rem;
-}
-
-/* ── ABOUT ── */
-.about-section {
-  padding: 0 3rem 4rem;
-  max-width: 900px;
-  margin: 0 auto;
-  width: 100%;
-  opacity: 0;
-  animation: fade-up 0.8s ease 0.4s forwards;
-}
-
-.about-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 2.5rem;
-}
-
-.about-heading {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--text-dim);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
   margin-bottom: 1.5rem;
 }
 
-.about-text {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
-}
-
-.about-text:last-of-type {
-  margin-bottom: 0;
-}
-
-.linkedin-btn {
+/* ── DOWNLOAD BUTTON ── */
+.download-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -179,20 +157,86 @@ nav {
   background: #ffffff;
   color: #000000;
   border: 1px solid #ffffff;
-  margin-top: 1.5rem;
 }
 
-.linkedin-btn:hover {
+.download-btn:hover {
   background: transparent;
   color: #ffffff;
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(255, 255, 255, 0.1);
 }
 
+.download-icon {
+  font-size: 1.1rem;
+}
+
+/* ── PDF VIEWER ── */
+.pdf-container {
+  padding: 0 3rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  flex: 1;
+  opacity: 0;
+  animation: fade-up 0.8s ease 0.4s forwards;
+}
+
+.pdf-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pdf-wrapper iframe {
+  width: 100%;
+  height: 80vh;
+  border: none;
+  display: block;
+}
+
+/* Mobile fallback */
+.pdf-fallback {
+  display: none;
+  padding: 4rem 2rem;
+  text-align: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.pdf-fallback p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 2rem 3rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  max-width: 100%;
+}
+
+footer a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+footer a:hover { color: #ffffff; }
+
 /* ── CONTACT SECTION ── */
 .contact-section {
   padding: 4rem 3rem;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
   border-top: 1px solid var(--border);
@@ -236,18 +280,6 @@ nav {
   font-weight: 500;
 }
 
-/* ── FOOTER ── */
-footer {
-  padding: 2rem 3rem;
-  border-top: 1px solid var(--border);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.75rem;
-  color: var(--text-dim);
-  margin-top: auto;
-}
-
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
@@ -257,16 +289,14 @@ footer {
 @media (max-width: 900px) {
   nav { padding: 1rem 1.5rem; }
   .nav-links { display: none; }
-  .hero { padding: 7rem 1.5rem 3rem; }
-  .about-section { padding: 0 1.5rem 3rem; }
-  .contact-section { padding: 3rem 1.5rem; }
-  .contact-links { gap: 2rem; }
+  .page-header { padding: 6rem 1.5rem 1.5rem; }
+  .pdf-container { padding: 0 1.5rem 3rem; }
   footer { flex-direction: column; gap: 0.5rem; text-align: center; }
 }
 
 @media (max-width: 600px) {
-  .about-card { padding: 1.5rem; }
-  .contact-links { flex-direction: column; gap: 1.5rem; }
+  .pdf-wrapper { display: none; }
+  .pdf-fallback { display: block; }
 }
 </style>
 </head>
@@ -280,20 +310,25 @@ footer {
   </ul>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <h1 class="hero-name">Aaron Gogna</h1>
-  <p class="hero-headline">Product leader with a background in strategy and consulting. Currently exploring senior product roles at mission-driven companies.</p>
+<!-- HEADER -->
+<div class="page-header">
+  <div class="page-eyebrow">Senior Director, Strategy and Growth Initiatives — Chime</div>
+  <h1 class="page-title">Aaron Gogna for <em>Chime</em></h1>
+  <p class="page-sub">View below or download the PDF.</p>
+  <a href="Aaron-Gogna-for-Chime-May-2026.pdf" download class="download-btn">
+    <span class="download-icon">↓</span> Download PDF
+  </a>
 </div>
 
-<!-- ABOUT -->
-<div class="about-section">
-  <div class="about-card">
-    <div class="about-heading">About</div>
-    <p class="about-text">I build products that solve real problems for real people. My background spans strategy consulting, fintech, and consumer products — with a focus on new user experiences, growth, and turning complex challenges into simple, elegant solutions.</p>
-    <p class="about-text">I'm currently looking for my next role and have put together tailored applications for a number of companies I admire. If you've landed here, chances are I sent you a link — feel free to explore and reach out.</p>
-    <a href="https://linkedin.com/in/aaron-gogna" target="_blank" rel="noopener" class="linkedin-btn">
-      View LinkedIn Profile →
+<!-- PDF VIEWER -->
+<div class="pdf-container">
+  <div class="pdf-wrapper">
+    <iframe src="Aaron-Gogna-for-Chime-May-2026.pdf" title="Aaron Gogna — Application for Chime, May 2026"></iframe>
+  </div>
+  <div class="pdf-fallback">
+    <p>PDF preview is not available on this device. Tap the button below to download and view the document.</p>
+    <a href="Aaron-Gogna-for-Chime-May-2026.pdf" download class="download-btn">
+      <span class="download-icon">↓</span> Download PDF
     </a>
   </div>
 </div>
