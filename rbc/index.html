@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aaron Gogna — Senior Director, AI | RBC</title>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wnpyb7k663");
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #000000;
+  --bg-card: #111111;
+  --text: #ffffff;
+  --text-muted: #999999;
+  --text-dim: #666666;
+  --border: rgba(255,255,255,0.1);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background: var(--bg);
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+::selection {
+  background: #ffffff;
+  color: #000000;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+
+/* ── NAVIGATION ── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1.25rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-logo span { color: var(--text-muted); }
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+/* ── HEADER ── */
+.page-header {
+  padding: 8rem 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  opacity: 0;
+  animation: fade-up 0.8s ease 0.2s forwards;
+}
+
+.page-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.page-title em {
+  font-style: italic;
+  color: #ffffff;
+}
+
+.page-sub {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 640px;
+  margin-bottom: 1.5rem;
+}
+
+/* ── DOWNLOAD BUTTON ── */
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.8rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.02em;
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+}
+
+.download-btn:hover {
+  background: transparent;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.1);
+}
+
+.download-icon {
+  font-size: 1.1rem;
+}
+
+/* ── PDF VIEWER ── */
+.pdf-container {
+  padding: 0 3rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  flex: 1;
+  opacity: 0;
+  animation: fade-up 0.8s ease 0.4s forwards;
+}
+
+.pdf-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pdf-wrapper iframe {
+  width: 100%;
+  height: 80vh;
+  border: none;
+  display: block;
+}
+
+/* Mobile fallback */
+.pdf-fallback {
+  display: none;
+  padding: 4rem 2rem;
+  text-align: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.pdf-fallback p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 2rem 3rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  max-width: 100%;
+}
+
+footer a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+footer a:hover { color: #ffffff; }
+
+/* ── CONTACT SECTION ── */
+.contact-section {
+  padding: 4rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  border-top: 1px solid var(--border);
+}
+
+.contact-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #ffffff;
+}
+
+.contact-links {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.contact-item {
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.contact-item:hover { opacity: 0.7; }
+
+.contact-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.contact-value {
+  display: block;
+  font-size: 0.95rem;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .page-header { padding: 6rem 1.5rem 1.5rem; }
+  .pdf-container { padding: 0 1.5rem 3rem; }
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+}
+
+@media (max-width: 600px) {
+  .pdf-wrapper { display: none; }
+  .pdf-fallback { display: block; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">Aaron Gogna<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="page-eyebrow">Senior Director, AI — RBC</div>
+  <h1 class="page-title">Aaron Gogna for <em>RBC</em></h1>
+  <p class="page-sub">View below or download the PDF.</p>
+  <a href="Aaron-Gogna-for-RBC-May-2026.pdf" download class="download-btn">
+    <span class="download-icon">↓</span> Download PDF
+  </a>
+</div>
+
+<!-- PDF VIEWER -->
+<div class="pdf-container">
+  <div class="pdf-wrapper">
+    <iframe src="Aaron-Gogna-for-RBC-May-2026.pdf" title="Aaron Gogna — Application for RBC, May 2026"></iframe>
+  </div>
+  <div class="pdf-fallback">
+    <p>PDF preview is not available on this device. Tap the button below to download and view the document.</p>
+    <a href="Aaron-Gogna-for-RBC-May-2026.pdf" download class="download-btn">
+      <span class="download-icon">↓</span> Download PDF
+    </a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <h2 class="contact-title">Get in Touch</h2>
+  <div class="contact-links">
+    <a href="mailto:aaron.gogna@gmail.com" class="contact-item">
+      <span class="contact-label">Email</span>
+      <span class="contact-value">aaron.gogna@gmail.com</span>
+    </a>
+    <a href="tel:+16478885598" class="contact-item">
+      <span class="contact-label">Phone</span>
+      <span class="contact-value">+1 (647) 888-5598</span>
+    </a>
+    <a href="https://linkedin.com/in/aaron-gogna" target="_blank" rel="noopener" class="contact-item">
+      <span class="contact-label">LinkedIn</span>
+      <span class="contact-value">linkedin.com/in/aaron-gogna</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>&copy; 2026 Aaron Gogna</span>
+</footer>
+
+<!-- VISITOR TRACKING -->
+<script>
+(function() {
+  var topic = 'meetaaron-999f7ff5edfaf3d0';
+  var ref = document.referrer || 'Direct visit (no referrer)';
+  var ua = navigator.userAgent || '';
+  var page = location.pathname;
+  var lang = navigator.language || 'unknown';
+  var sz = window.screen ? (window.screen.width + 'x' + window.screen.height) : 'unknown';
+  var now = new Date();
+  var time = now.toLocaleString('en-US', { timeZone: 'America/Toronto' });
+
+  var browser = 'Unknown';
+  if (ua.indexOf('Edg') > -1) browser = 'Edge';
+  else if (ua.indexOf('Chrome') > -1) browser = 'Chrome';
+  else if (ua.indexOf('Safari') > -1) browser = 'Safari';
+  else if (ua.indexOf('Firefox') > -1) browser = 'Firefox';
+
+  var device = 'Desktop';
+  if (/iPhone|iPad|iPod/.test(ua)) device = 'iOS';
+  else if (/Android/.test(ua)) device = 'Android';
+  else if (/Mobile/.test(ua)) device = 'Mobile';
+
+  var msg = 'Page: ' + page
+    + '\nTime: ' + time + ' (ET)'
+    + '\nReferrer: ' + ref
+    + '\nDevice: ' + device + ' / ' + browser
+    + '\nScreen: ' + sz
+    + '\nLanguage: ' + lang;
+
+  var url = 'https://ntfy.sh/' + topic;
+  var sent = false;
+
+  if (window.fetch) {
+    fetch(url, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: msg
+    }).catch(function() {});
+    sent = true;
+  }
+
+  if (!sent && navigator.sendBeacon) {
+    navigator.sendBeacon(url, msg);
+  }
+})();
+</script>
+
+</body>
+</html>
